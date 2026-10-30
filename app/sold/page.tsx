@@ -5,7 +5,8 @@ import Testimonials from "../components/Testimonial";
 export const metadata = { title: "Sold vehicles & customer reviews" };
 
 export default async function SoldPage() {
-  const [sold, testimonials] = await Promise.all([getSold(), getTestimonials()]);
+  const [ testimonials] = await Promise.all([ getTestimonials()]);
+  const { items: sold } = await getSold();
   return (
     <>
       <Container className="py-8">
@@ -19,7 +20,7 @@ export default async function SoldPage() {
           <p className="mt-6 text-text-muted">Sold vehicles will appear here.</p>
         )}
       </Container>
-      <Testimonials items={testimonials} />
+      <Testimonials items={testimonials.items} />
     </>
   );
 }

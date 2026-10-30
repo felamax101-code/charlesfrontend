@@ -4,13 +4,14 @@ import type { Vehicle, VehicleDetail, Testimonial, InquiryPayload } from "./type
 async function get<T>(path: string, revalidate = 60): Promise<T | null> {
   try {
     const res = await fetch(`${site.api}${path}`, { next: { revalidate } });
-    return res.ok ? ((await res.json()) as T) : null;
+    return res.ok ? ((await res.json()) as T) : "error" as T;
   } catch {
     return null;
   }
 }
 
 export async function getVehicles(params: Record<string, string | undefined> = {}) {
+  
   const qs = new URLSearchParams();
   Object.entries(params).forEach(([k, v]) => v && qs.set(k, v));
   return (await get<Vehicle[]>(`/vehicles?${qs}`)) ?? [];

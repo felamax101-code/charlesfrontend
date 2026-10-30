@@ -5,11 +5,20 @@ import VehicleCard from "../components/VehicleCard";
 import ContactActions from "../components/ContactActions";
 import { categories } from "../lib/categories";
 import { getVehicles } from "../lib/api";
-export const metadata = { title: "Vehicles" };
+import { Suspense } from "react";
 
-export default async function Vehicles({
-  searchParams,
-}: { searchParams: Promise<{ category?: string; q?: string }> }) {
+export const metadata = { title: "Vehicles" };
+export default function Vehicles({ searchParams }: { searchParams: Promise<{ category?: string; q?: string }> }) {
+  return (
+    <Container className="py-8">
+      <h1 className="font-display text-3xl font-bold">Our vehicles</h1>
+      <Suspense fallback={<p className="mt-6 text-text-muted">Loading vehicles...</p>}>
+        <Results searchParams={searchParams} />
+      </Suspense>
+    </Container>
+  );
+}
+async function Results({ searchParams }: { searchParams: Promise<{ category?: string; q?: string }> }) {
   const { category, q } = await searchParams;
   const cat = categories.find((c) => c.key === category)?.key;
   const vehicles = await getVehicles({ category: cat, q, limit: "48" });
@@ -20,7 +29,7 @@ export default async function Vehicles({
     }`;
 
   return (
-    <Container className="py-8">
+    <>
       <h1 className="font-display text-3xl font-bold">Our vehicles</h1>
 
       <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sticky top-15 z-50">
@@ -49,6 +58,6 @@ export default async function Vehicles({
           <div className="mx-auto mt-5 max-w-sm"><ContactActions /></div>
         </div>
       )}
-    </Container>
+    </>
   );
 }

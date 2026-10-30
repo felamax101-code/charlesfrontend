@@ -11,8 +11,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "<api.yourdomain.com>", pathname: "/media/**" },
     ],
   },
-  cacheComponents: true,
-  partialPrefetching: true,
+  // cacheComponents: true,
+  // partialPrefetching: true,
   turbopack: {
     rules: {
       "*.css": {

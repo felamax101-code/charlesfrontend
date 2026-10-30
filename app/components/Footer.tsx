@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Container from "./Container";
 import { site } from "../lib/site";
+import Year from "./Year";
 export default function Footer() {
   return (
     <footer className="mt-16 border-t border-border bg-surface">
@@ -24,8 +25,8 @@ export default function Footer() {
         </div>
       </Container>
       <p className="border-t border-border py-4 text-center text-xs text-text-muted">
-        © {new Date().getFullYear()} {site.name}
-      </p>
+  © <Year /> {site.name}
+</p>
     </footer>
   );
 }

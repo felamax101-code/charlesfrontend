@@ -13,7 +13,10 @@ const steps = [
 ];
 
 export default async function Home() {
-  const [vehicles, testimonials] = await Promise.all([getVehicles({ limit: "6" }), getTestimonials()]);
+  const [{ items: vehicles, failed }, { items: testimonials }] = await Promise.all([
+  getVehicles({ limit: "6" }),
+  getTestimonials(),
+]);
 
   return (
     <>
@@ -50,7 +53,11 @@ export default async function Home() {
           </div>
         </Container>
       </section>
-
+            {failed && (
+  <p className="rounded-xl bg-warning-light p-4 text-sm text-warning">
+    We couldn't load vehicles right now. Please call or WhatsApp us.
+  </p>
+)}
       {vehicles.length > 0 && (
         <section className="pb-12">
           <Container>

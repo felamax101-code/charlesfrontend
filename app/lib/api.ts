@@ -1,6 +1,18 @@
 import { site } from "./site";
 import type { Vehicle, VehicleDetail, Testimonial, InquiryPayload } from "./types";
-
+type ListResult<T> = { items: T[]; failed: boolean };
+async function getList<T>(path: string, revalidate = 60): Promise<ListResult<T>> {
+  try {
+    const res = await fetch(`${site.api}${path}`, { next: { revalidate } });
+    if (!res.ok) return { items: [], failed: true };
+    const data: unknown = await res.json();
+    return Array.isArray(data)
+      ? { items: data as T[], failed: false }
+      : { items: [], failed: true };
+  } catch {
+    return { items: [], failed: true };
+  }
+}
 async function get<T>(path: string, revalidate = 60): Promise<T | null> {
   try {
     const res = await fetch(`${site.api}${path}`, { next: { revalidate } });
@@ -11,15 +23,13 @@ async function get<T>(path: string, revalidate = 60): Promise<T | null> {
 }
 
 export async function getVehicles(params: Record<string, string | undefined> = {}) {
-  
   const qs = new URLSearchParams();
   Object.entries(params).forEach(([k, v]) => v && qs.set(k, v));
-  return (await get<Vehicle[]>(`/vehicles?${qs}`)) ?? [];
+  return getList<Vehicle>(`/vehicles?${qs}`);
 }
-export const getSold = async () => (await get<Vehicle[]>("/vehicles/sold?limit=48")) ?? [];
 export const getVehicle = (slug: string) => get<VehicleDetail>(`/vehicles/${slug}`);
-export const getTestimonials = async () => (await get<Testimonial[]>("/testimonials")) ?? [];
-
+export const getSold = () => getList<Vehicle>("/vehicles/sold?limit=48");
+export const getTestimonials = () => getList<Testimonial>("/testimonials");
 export async function submitInquiry(
   payload: InquiryPayload
 ): Promise<{ ok: true } | { ok: false; reason: "rate" | "invalid" | "error" }> {

@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "http", hostname: "localhost", port: "8000", pathname: "/media/**" },
       { protocol: "https", hostname: "<api.yourdomain.com>", pathname: "/media/**" },
+      { protocol: "https", hostname: "carweb.duckdns.org", pathname: "/media/**" },
     ],
   },
   // cacheComponents: true,

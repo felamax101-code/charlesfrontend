@@ -4,7 +4,6 @@ import { Truck } from "lucide-react";
 export default function Photo({ src, alt, sizes, priority }: {
   src?: string | null; alt: string; sizes: string; priority?: boolean;
 }) {
-        console.log("ggggg",src)
 
   if (!src)
 

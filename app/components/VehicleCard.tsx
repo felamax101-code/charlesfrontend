@@ -7,7 +7,6 @@ export default function VehicleCard({ v }: { v: Vehicle }) {
     v.status === "sold" ? { t: "Sold", c: "bg-text-primary text-bg" }
     : v.status === "on_order" ? { t: "On order", c: "bg-warning-light text-warning" }
     : { t: "Brand new", c: "bg-primary-light text-primary" };
-    console.log("vvvvv",v.images)
   return (
     <Link href={`/vehicles/${v.slug}`}
       className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition hover:border-primary hover:shadow-md">
@@ -20,7 +19,11 @@ export default function VehicleCard({ v }: { v: Vehicle }) {
         <h3 className="font-display text-lg font-semibold group-hover:text-primary">{v.name}</h3>
         <div className="mt-auto flex items-center justify-between pt-3">
           <Price v={v} />
-          <span className="text-sm font-semibold text-primary">View car details →</span>
+          <div
+          className="rounded py-4 px-2 border-2 border-border-muted"
+          >
+          <span className="text-xm font-semibold text-primary">View car details →</span>
+          </div>
         </div>
       </div>
     </Link>

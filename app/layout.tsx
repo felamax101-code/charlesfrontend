@@ -4,8 +4,9 @@ import "./globals.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import { site } from "@/app/lib/site";
-
+import JsonLd from "./components/JsonLd";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+
 const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" });
 
@@ -22,6 +23,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${grotesk.variable} ${mono.variable}`}>
       <head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head>
       <body className="min-h-screen bg-bg font-sans text-text-primary antialiased">
+        <JsonLd data={{
+          "@context": "https://schema.org",
+          "@type": "AutoDealer",
+          name: site.name,
+          url: site.url,
+          telephone: site.phone ? `+${site.phone}` : undefined,
+          email: site.email || undefined,
+          address: { "@type": "PostalAddress", streetAddress: site.address, addressCountry: "KE" },
+          openingHours: site.hours || undefined,
+          brand: { "@type": "Brand", name: "Isuzu" },
+        }} />
         <Header />
         <main>{children}</main>
         <Footer />

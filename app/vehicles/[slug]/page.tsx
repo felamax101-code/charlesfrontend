@@ -9,7 +9,8 @@ import ContactActions from "@/app/components/ContactActions";
 import InquiryForm from "@/app/components/InquiryForm";
 import { getVehicle } from "@/app/lib/api";
 import { inquiryText, telHref, vehicleUrl, waHref } from "@/app/lib/contact";
-
+import JsonLd from "@/app/components/JsonLd";
+import { site } from "@/app/lib/site";
 type P = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: P): Promise<Metadata> {
@@ -19,10 +20,18 @@ export async function generateMetadata({ params }: P): Promise<Metadata> {
   const description = v.description ?? `Brand new ${v.name}. Request the price today.`;
   const img = v.images[0]?.url;
   return {
+  title: `${v.name} | Brand New Isuzu`,
+  description: description.slice(0, 160),
+  alternates: { canonical: `/vehicles/${v.slug}` },
+  openGraph: {
+    type: "website",
     title: v.name,
-    description,
-    openGraph: { title: v.name, description, url: vehicleUrl(v.slug), images: img ? [img] : [] }, // WhatsApp link preview
-  };
+    description: description.slice(0, 160),
+    url: vehicleUrl(v.slug),
+    images: img ? [img] : [],
+  },
+  twitter: { card: "summary_large_image" },
+};
 }
 
 export default async function VehiclePage({ params }: P) {
@@ -32,8 +41,58 @@ export default async function VehiclePage({ params }: P) {
 
   const sold = v.status === "sold";
   const specs = Object.entries(v.specs ?? {}).filter(([, val]) => val);
+
+
+  // inside VehiclePage, after `const specs = ...`
+  const seats = Number(String(v.specs?.seats ?? "").match(/\d+/)?.[0]) || undefined;
+  const availability =
+    v.status === "sold" ? "https://schema.org/SoldOut"
+      : v.status === "on_order" ? "https://schema.org/PreOrder"
+        : "https://schema.org/InStock";
+
+  const vehicleLd = {
+    "@context": "https://schema.org",
+    "@type": "Vehicle",
+    name: v.name,
+    description: v.description ?? `Brand new ${v.name}`,
+    url: vehicleUrl(v.slug),
+    image: v.images.map((i) => i.url),
+    brand: { "@type": "Brand", name: "Isuzu" },
+    model: v.series ?? undefined,
+    itemCondition: "https://schema.org/NewCondition",
+    fuelType: v.specs?.fuel ?? "Diesel",
+    vehicleTransmission: v.specs?.transmission,
+    driveWheelConfiguration: v.specs?.drivetrain,
+    vehicleSeatingCapacity: seats,
+    vehicleEngine: v.specs?.engine
+      ? { "@type": "EngineSpecification", name: v.specs.engine }
+      : undefined,
+    // only when a real price is public; "price on request" has no offer
+    offers: !v.price_on_request && v.public_price
+      ? {
+        "@type": "Offer",
+        price: v.public_price,
+        priceCurrency: site.currency,
+        availability,
+        itemCondition: "https://schema.org/NewCondition",
+        url: vehicleUrl(v.slug),
+      }
+      : undefined,
+  };
+
+  const crumbsLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: site.url },
+      { "@type": "ListItem", position: 2, name: "Vehicles", item: `${site.url}/vehicles` },
+      { "@type": "ListItem", position: 3, name: v.name, item: vehicleUrl(v.slug) },
+    ],
+  };
   return (
     <>
+    <JsonLd data={vehicleLd} />
+  <JsonLd data={crumbsLd} />
       <Container className="py-6 pb-28 md:pb-10">
         <Link href="/vehicles" className="text-sm font-medium text-text-secondary hover:text-primary">← All vehicles</Link>
 

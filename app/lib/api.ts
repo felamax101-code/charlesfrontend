@@ -28,7 +28,7 @@ export async function getVehicles(params: Record<string, string | undefined> = {
   return getList<Vehicle>(`/vehicles?${qs}`);
 }
 export const getVehicle = (slug: string) => get<VehicleDetail>(`/vehicles/${slug}`);
-export const getSold = () => getList<Vehicle>("/vehicles/sold?limit=48");
+export const getSold = (limit = 48) => getList<Vehicle>(`/vehicles/sold?limit=${limit}`);
 export const getTestimonials = () => getList<Testimonial>("/testimonials");
 export async function submitInquiry(
   payload: InquiryPayload
@@ -46,4 +46,10 @@ export async function submitInquiry(
   } catch {
     return { ok: false, reason: "error" };
   }
+}
+
+export async function getAllVehicles(): Promise<Vehicle[]> {
+  const [live, sold] = await Promise.all([getVehicles({ limit: "100" }), getSold(100)]);
+  const seen = new Set<string>();
+  return [...live.items, ...sold.items].filter((v) => !seen.has(v.slug) && seen.add(v.slug));
 }

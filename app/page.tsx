@@ -5,6 +5,7 @@ import VehicleCard from "./components/VehicleCard";
 import ContactActions from "./components/ContactActions";
 import { categories } from "./lib/categories";
 import { getTestimonials,getVehicles } from "./lib/api";
+import HeroSlideshow from "./components/HeroSlideShow";
 const steps = [
   ["Choose", "Browse our brand new Isuzu range."],
   ["Get your price", "Call, WhatsApp, email or send the form."],
@@ -21,6 +22,7 @@ export default async function Home() {
   return (
     <>
       <section className="border-b border-border bg-primary-light">
+        <HeroSlideshow/>
         <Container className="py-12 sm:py-20">
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">100% brand new Isuzu</p>
           <h1 className="mt-3 max-w-2xl font-display text-4xl font-bold leading-tight sm:text-5xl">
@@ -55,7 +57,7 @@ export default async function Home() {
       </section>
             {failed && (
   <p className="rounded-xl bg-warning-light p-4 text-sm text-warning">
-    We couldn't load vehicles right now. Please call or WhatsApp us.
+    We couldn't load vehicles right now. Please check your internet connection call or WhatsApp us.
   </p>
 )}
       {vehicles.length > 0 && (

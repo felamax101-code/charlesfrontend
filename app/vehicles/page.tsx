@@ -7,7 +7,11 @@ import { categories } from "../lib/categories";
 import { getVehicles } from "../lib/api";
 import { Suspense } from "react";
 
-export const metadata = { title: "Vehicles" };
+export async function generateMetadata({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+  const { q } = await searchParams;
+  return { title: "Isuzu vehicles", alternates: { canonical: "/vehicles" }, robots: q ? { index: false } : undefined };
+}
+
 export default function Vehicles({ searchParams }: { searchParams: Promise<{ category?: string; q?: string }> }) {
   return (
     <Container className="py-8">
@@ -17,6 +21,7 @@ export default function Vehicles({ searchParams }: { searchParams: Promise<{ cat
     </Container>
   );
 }
+
 async function Results({ searchParams }: { searchParams: Promise<{ category?: string; q?: string }> }) {
   const { category, q } = await searchParams;
   const cat = categories.find((c) => c.key === category)?.key;

@@ -20,9 +20,9 @@ export default function VehicleCard({ v }: { v: Vehicle }) {
         <div className="mt-auto flex items-center justify-between pt-3">
           <Price v={v} />
           <div
-          className="rounded py-4 px-2 border-2 border-border-muted"
+          className="rounded-xl  px-1 border-1 border-app-text-placeholder"
           >
-          <span className="text-xm font-semibold text-primary">View car details →</span>
+          <span className="text-xs font-semibold text-primary">View car details →</span>
           </div>
         </div>
       </div>

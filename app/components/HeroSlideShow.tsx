@@ -4,17 +4,19 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const defaultSlides = [
-    { src: "/hero/InShot_20261103_100729868.jpg", alt: "Brand new Isuzu D-Max automatic pickup" },
-    { src: "/hero/InShot_20261103_101005991.jpg", alt: "Isuzu N-Series truck" },
-    { src: "/hero/InShot_20261103_101102841.jpg", alt: "Brand new Isuzu D-Max manual pickup" },
-    { src: "/hero/InShot_20261103_101134208.jpg", alt: "Brand new Isuzu D-Max manual single cab pickup" },
-    { src: "/hero/InShot_20261103_101208060.jpg", alt: "frr90" },
-    { src: "/hero/InShot_20261103_101237436.jpg", alt: "fseriesbus" },
-    { src: "/hero/InShot_20261103_101308228.jpg", alt: "fseriesbus2" },
-    { src: "/hero/InShot_20261103_101352535.jpg", alt: "mux" },
+    { src: "/hero/InShot_20261103_112416953.jpg", alt: "Brand new Isuzu D-Max automatic pickup" },
+    { src: "/hero/InShot_20261103_112451664.jpg", alt: "Isuzu N-Series truck" },
+    { src: "/hero/InShot_20261103_112516386.jpg", alt: "Brand new Isuzu D-Max manual pickup" },
+    { src: "/hero/InShot_20261103_112547672.jpg", alt: "Brand new Isuzu D-Max manual single cab pickup" },
+    { src: "/hero/InShot_20261103_112619764.jpg", alt: "frr90" },
+    { src: "/hero/InShot_20261103_112642580.jpg", alt: "fseriesbus" },
+    { src: "/hero/InShot_20261103_112713360.jpg", alt: "fseriesbus2" },
+    { src: "/hero/InShot_20261103_112736709.jpg", alt: "mux" },
     { src: "/hero/FRR90-11-tonnes-truck.jpg", alt: "nseriesbus" },
     { src: "/hero/tipper.png", alt: "tipper" },
-];
+
+
+]
 type Slide = { src: string; alt: string };
 export default function HeroSlideshow({
     slides = defaultSlides,

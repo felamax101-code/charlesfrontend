@@ -4,25 +4,18 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const defaultSlides = [
-    { src: "/hero/dmaxautomatic.png", alt: "Brand new Isuzu D-Max automatic pickup" },
-    { src: "/hero/nseries.png", alt: "Isuzu N-Series truck" },
-    { src: "/hero/dmaxmanual.png", alt: "Brand new Isuzu D-Max manual pickup" },
-    { src: "/hero/dmaxsc.png", alt: "Brand new Isuzu D-Max manual single cab pickup" },
-    { src: "/hero/frr90.png", alt: "frr90" },
-    { src: "/hero/fseriesbus.png", alt: "fseriesbus" },
-
-    { src: "/hero/fseriesbus2.png", alt: "fseriesbus2" },
-    { src: "/hero/mux.png", alt: "mux" },
-    { src: "/hero/nseriesbus.png", alt: "nseriesbus" },
-
+    { src: "/hero/InShot_20261103_100729868.jpg", alt: "Brand new Isuzu D-Max automatic pickup" },
+    { src: "/hero/InShot_20261103_101005991.jpg", alt: "Isuzu N-Series truck" },
+    { src: "/hero/InShot_20261103_101102841.jpg", alt: "Brand new Isuzu D-Max manual pickup" },
+    { src: "/hero/InShot_20261103_101134208.jpg", alt: "Brand new Isuzu D-Max manual single cab pickup" },
+    { src: "/hero/InShot_20261103_101208060.jpg", alt: "frr90" },
+    { src: "/hero/InShot_20261103_101237436.jpg", alt: "fseriesbus" },
+    { src: "/hero/InShot_20261103_101308228.jpg", alt: "fseriesbus2" },
+    { src: "/hero/InShot_20261103_101352535.jpg", alt: "mux" },
+    { src: "/hero/FRR90-11-tonnes-truck.jpg", alt: "nseriesbus" },
     { src: "/hero/tipper.png", alt: "tipper" },
-
-
-    { src: "/hero/fseries.png", alt: "Isuzu F-Series truck" },
 ];
-
 type Slide = { src: string; alt: string };
-
 export default function HeroSlideshow({
     slides = defaultSlides,
     interval = 5000,
@@ -43,7 +36,7 @@ export default function HeroSlideshow({
 
     return (
         <section
-            className="relative w-full overflow-hidden bg-primary-light"
+            className="relative sm:w-full md:max-w-lg md:mx-auto overflow-hidden bg-primary-light"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             aria-roledescription="carousel"

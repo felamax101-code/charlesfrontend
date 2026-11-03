@@ -43,7 +43,7 @@ export default async function Home() {
       <section className="py-12">
         <Container>
           <h2 className="font-display text-2xl font-bold">Shop by type</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {categories.map((c) => (
               <Link key={c.key} href={`/vehicles?category=${c.key}`}
                 className="rounded-2xl border border-border bg-surface p-6 hover:border-primary">

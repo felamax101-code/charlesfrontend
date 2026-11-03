@@ -1,4 +1,4 @@
-export type Category = "pickup" | "truck" | "bus";
+export type Category = "pickup" | "truck" | "bus" |"suv";
 export type Status = "available" | "on_order" | "sold";
 export interface Img { url: string; position: number }
 

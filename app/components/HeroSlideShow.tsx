@@ -12,7 +12,6 @@ const defaultSlides = [
     { src: "/hero/InShot_20261103_112642580.jpg", alt: "fseriesbus" },
     { src: "/hero/InShot_20261103_112713360.jpg", alt: "fseriesbus2" },
     { src: "/hero/InShot_20261103_112736709.jpg", alt: "mux" },
-    { src: "/hero/FRR90-11-tonnes-truck.jpg", alt: "nseriesbus" },
     { src: "/hero/tipper.png", alt: "tipper" },
 
 

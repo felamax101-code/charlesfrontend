@@ -36,7 +36,7 @@ export default function HeroSlideshow({
 
     return (
         <section
-            className="relative sm:w-full md:max-w-lg md:mx-auto overflow-hidden bg-primary-light"
+            className="relative sm:w-full md:max-w-3xl md:mx-auto overflow-hidden bg-primary-light"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             aria-roledescription="carousel"
@@ -52,7 +52,7 @@ export default function HeroSlideshow({
                         sizes="100vw"
                         priority={i === 0}
                         aria-hidden={i !== index}
-                        className={`object-cover transition-opacity duration-1000 ease-in-out motion-reduce:transition-none ${i === index ? "opacity-100" : "opacity-0"
+                        className={`object-contain transition-opacity duration-1000 ease-in-out motion-reduce:transition-none ${i === index ? "opacity-100" : "opacity-0"
                             }`}
                     />
                 ))}
